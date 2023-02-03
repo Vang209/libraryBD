@@ -29,6 +29,6 @@ public class ClientService {
         //                System.out.println("У нас нет такого пользователя");
     }
     public void ExitingTheApp() throws IOException {
-        DatabaseRepository.WriteDatabase(BookRepository.books, ClientRepository.clients, LogRepository.logs);
+        DatabaseRepository.WriteDatabase();
     }
 }

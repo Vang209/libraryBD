@@ -4,14 +4,13 @@ import org.example.model.*;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 public class DatabaseRepository {
 
     public static void ReadDatabase(){
-        Database database = new Database();
+        DatabaseConnection database = new DatabaseConnection();
 
         try {
             Statement statement = database.getConnection().createStatement();
@@ -64,8 +63,8 @@ public class DatabaseRepository {
         }
     }
 
-    public static void WriteDatabase(List<Book> bookList, List<Client> clientList, List<Log> logList){
-        Database database = new Database();
+    public static void WriteDatabase(){ //оставил для того чтобы заполнить базу данных, дальше данный метод не будет использоваться
+        DatabaseConnection database = new DatabaseConnection();
 
         final String INSERT_NEW_BOOK="INSERT INTO books VALUES(?,?,?,?,?)";
         final String INSERT_NEW_CLIENT="INSERT INTO client VALUES(?,?,?)";

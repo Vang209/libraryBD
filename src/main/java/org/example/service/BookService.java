@@ -5,6 +5,7 @@ import org.example.model.Client;
 import org.example.model.Log;
 import org.example.repository.BookRepository;
 import org.example.repository.LogRepository;
+import org.example.repository.UpdatingTheDatabase;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -22,7 +23,8 @@ public class BookService {
 //                System.out.println("Да, у нас есть такая книга, мы добавили ее в ваш раздел 'Мои книги'");
                 BookRepository.books.get(i).setClientId(client.getUuid());
                 LocalDate date = LocalDate.now();
-                LogRepository.logs.add(new Log(BookRepository.books.get(i), client.getUuid(), "Взял", date));
+                UpdatingTheDatabase.UpdateLogs(new Log(BookRepository.books.get(i), client.getUuid(), "Взял", date)); //запись лога в базу
+                UpdatingTheDatabase.UpdateBook(BookRepository.books, BookRepository.books.get(i));  //обновление книги в базе
             }
         }
         if (numberOfBooks == 0) {
@@ -35,8 +37,9 @@ public class BookService {
         for (int i = 0; i < BookRepository.books.size(); i++) {
             if (clientBook.equals(BookRepository.books.get(i)) && client.getUuid().equals(BookRepository.books.get(i).getId())) {
                 LocalDate date = LocalDate.now();
-                LogRepository.logs.add(new Log(BookRepository.books.get(i), client.getUuid(), "Вернул", date));
+                UpdatingTheDatabase.UpdateLogs(new Log(BookRepository.books.get(i), client.getUuid(), "Вернул", date)); //запись лога в базу
                 BookRepository.books.get(i).setClientId(null);
+                UpdatingTheDatabase.UpdateBook(BookRepository.books, BookRepository.books.get(i)); //обновление книги в базе
             }
         }
         if(numBookClient == 1){
