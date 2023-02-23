@@ -20,7 +20,7 @@ public class BookService {
         for (int i = 0; i < BookRepository.books.size(); i++) {
             if (clientBook.equals(BookRepository.books.get(i)) && BookRepository.books.get(i).getClientId() == null) {
                 numberOfBooks++;
-//                System.out.println("Да, у нас есть такая книга, мы добавили ее в ваш раздел 'Мои книги'");
+                System.out.println("Да, у нас есть такая книга, мы добавили ее в ваш раздел 'Мои книги'");
                 BookRepository.books.get(i).setClientId(client.getUuid());
                 LocalDate date = LocalDate.now();
                 UpdatingTheDatabase.UpdateLogs(new Log(BookRepository.books.get(i), client.getUuid(), "Взял", date)); //запись лога в базу
@@ -36,6 +36,7 @@ public class BookService {
         int numBookClient = 1;
         for (int i = 0; i < BookRepository.books.size(); i++) {
             if (clientBook.equals(BookRepository.books.get(i)) && client.getUuid().equals(BookRepository.books.get(i).getId())) {
+                System.out.println("Спасибо что вернули книгу ^^");
                 LocalDate date = LocalDate.now();
                 UpdatingTheDatabase.UpdateLogs(new Log(BookRepository.books.get(i), client.getUuid(), "Вернул", date)); //запись лога в базу
                 BookRepository.books.get(i).setClientId(null);
@@ -49,20 +50,20 @@ public class BookService {
     }
 
 
-    public List<Book> ClientBook(Client client){
+    public void ClientBook(Client client){
         int numberOfBooksTheClientHas = 0;
         List<Book> bookReturn = new ArrayList<>();
         for (int i = 0; i < BookRepository.books.size(); i++) {
             if (BookRepository.books.get(i).getClientId() != null) {
                 if (BookRepository.books.get(i).getClientId().equals(client.getUuid())) {
                     numberOfBooksTheClientHas++;
-                    bookReturn.add(BookRepository.books.get(i));
+                    System.out.println(BookRepository.books.get(i).getAuthor()+" "+BookRepository.books.get(i).getTitle()+" "+BookRepository.books.get(i).getGenre().getTitleGenre());
                 }
             }
         }
         if (numberOfBooksTheClientHas == 0) {
-            return null;
-        } else return bookReturn;
+            System.out.println("У вас пока нет книг");
+        }
     }
 
     public enum TakeReturn{

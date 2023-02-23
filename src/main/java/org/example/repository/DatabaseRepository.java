@@ -14,9 +14,9 @@ public class DatabaseRepository {
 
         try {
             Statement statement = database.getConnection().createStatement();
-            ResultSet resultSetBook = statement.executeQuery("select book from library");
-            ResultSet resultSetClient = statement.executeQuery("select client from library");
-            ResultSet resultSetLog = statement.executeQuery("select log from library");
+            ResultSet resultSetBook = statement.executeQuery("select * from books");
+            ResultSet resultSetClient = statement.executeQuery("select * from client");
+            ResultSet resultSetLog = statement.executeQuery("select * from log");
 
             int lineNumber=1;
             while (resultSetBook.next()){

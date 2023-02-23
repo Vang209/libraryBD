@@ -15,35 +15,10 @@ public class ClientView {
     ClientService clientService = new ClientService();
     BookService bookService = new BookService();
 
-    public void MyBook(Client client){
-        Scanner scanner = new Scanner(System.in);
-
-
-        System.out.println("Вы хотите взять или вернуть книгу?");
-        System.out.println("1. Взять");
-        System.out.println("2. Вернуть");
-        System.out.println("3. Книги которые у меня есть");
-        System.out.println("4. Вернуться в меню");
-
-        int clientMyBook = scanner.nextInt();
-        if(clientMyBook == 1){
-            Book book = bookView.serviceClient(client);
-            bookService.TakeBook(client, book);
-        } else if (clientMyBook == 2) {
-            Book book = bookView.serviceClient(client);
-            bookService.ReturnBook(client, book);
-        } else if (clientMyBook == 3) {
-            bookService.ClientBook(client);
-        }
-    }
-
-
-
     public void Menu(Client client){
+        System.out.println("Нажмите '1' для начала работы");
         Scanner scanner = new Scanner(System.in);
         int numberCommand = scanner.nextInt();
-        LogService logService = new LogService();
-
 
         System.out.println("Пожалуйста ввидите номер команды");
 
@@ -75,13 +50,41 @@ public class ClientView {
         }
     }
 
-    public Client LoginClient() throws IOException, ClassNotFoundException {
+
+    public void MyBook(Client client){
+        Scanner scanner = new Scanner(System.in);
+
+
+        System.out.println("Вы хотите взять или вернуть книгу?");
+        System.out.println("1. Взять");
+        System.out.println("2. Вернуть");
+        System.out.println("3. Книги которые у меня есть");
+        System.out.println("4. Вернуться в меню");
+
+        int clientMyBook = scanner.nextInt();
+        if(clientMyBook == 1){
+            Book book = bookView.serviceClient();
+            bookService.TakeBook(client, book);
+        } else if (clientMyBook == 2) {
+            Book book = bookView.serviceClient();
+            bookService.ReturnBook(client, book);
+        } else if (clientMyBook == 3) {
+            bookService.ClientBook(client);
+        }
+    }
+
+
+
+
+    public void LoginClient() throws IOException, ClassNotFoundException {
         System.out.println("Пожалуйста авторизуйтесь");
         Scanner scanner = new Scanner(System.in);
         String clientString = scanner.nextLine();
+        Menu(clientService.Login(clientString));
 
-        return clientService.Login(clientString);
     }
+
+
 
     public void LogMenu(){
         Scanner scanner = new Scanner(System.in);

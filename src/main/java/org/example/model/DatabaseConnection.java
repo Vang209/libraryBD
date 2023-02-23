@@ -18,6 +18,7 @@ public class DatabaseConnection {
     public DatabaseConnection(){
         try {
             connection = DriverManager.getConnection(USR, USERNAME, PASSWORD);
+            System.out.println("Соеденение установлено");
         } catch (SQLException e) {
             e.printStackTrace();
         }

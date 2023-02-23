@@ -11,24 +11,14 @@ public class ClientService {
 
 
 
-    public Client Login(String nameClient) throws IOException, ClassNotFoundException {
-        ClientView clientView = new ClientView();
-        UUID uuid = UUID.randomUUID();
-        Client client = new Client(uuid,nameClient);
-        for(int i = 0; i< ClientRepository.getClients().size(); i++){
-            if(nameClient.equals(ClientRepository.getClients().get(i))){
-//                System.out.println("Вы авторизовались, добро пожаловать, "+nameClient);
-                client = ClientRepository.getClients().get(i);
-//                DatabaseRepository.ReadDatabase();
-                break;
+    public Client Login(String nameClient){
+        for(int i = 0; i< ClientRepository.clients.size(); i++){
+            if(ClientRepository.clients.get(i).getNameClient().equals(nameClient)){
+                System.out.println("Вы авторизовались, добро пожаловать, "+nameClient);
+                return ClientRepository.getClients().get(i);
             }
         }
-        if(client != null){
-            return client;
-        } else return null;
-        //                System.out.println("У нас нет такого пользователя");
-    }
-    public void ExitingTheApp() throws IOException {
-        DatabaseRepository.WriteDatabase();
+        System.out.println("Нам не удалось найти такого пользователя :(");
+        return null;
     }
 }
